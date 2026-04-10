@@ -1,40 +1,27 @@
 ```
-# Xcode
-*.xcodeproj/
-*.xcworkspace/
-*.pbxuser
-*.mode1v3
-*.mode2v3
-*.perspectivev3
-*.swiftpm
-build/
-.derivedData/
-xcuserdata/
-*.xccheckout
-*.moved-aside
-*.xcuserstate
+# Dependencies
+.venv/
+venv/
+__pycache__/
 
-# Swift
-*.swiftmodule
-*.swiftdoc
-*.swiftsourceinfo
-
-# iOS
-*.ipa
-*.dSYM.zip
-*.dSYM/
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Generated
-DerivedData/
-
-# Temporary files
-*.tmp
-*.temp
-*.bak
+# Logs and temp files
 *.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# Python specific
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
 ```

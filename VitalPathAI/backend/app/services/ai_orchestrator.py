@@ -12,6 +12,7 @@ import structlog
 
 from app.config import settings
 from app.core.safety import SafetyValidator
+from app.services.vector_store import ChromaDBService
 
 logger = structlog.get_logger()
 
@@ -96,7 +97,8 @@ Wellness Philosophy: "Wellness, Not Medicine"
         message: str,
         language: str = "en",
         strict_wellness_mode: bool = False,
-        context: Optional[List[str]] = None
+        context: Optional[List[str]] = None,
+        user_id: Optional[str] = None
     ) -> str:
         """
         Process text message through appropriate AI model.
@@ -106,10 +108,16 @@ Wellness Philosophy: "Wellness, Not Medicine"
             language: Language code (en, my, th, zh, ja, ko)
             strict_wellness_mode: Use stricter wellness constraints
             context: Previous conversation context for memory
+            user_id: User ID for retrieving contextual memory
         
         Returns:
             AI response string
         """
+        # Retrieve user context from vector store if user_id provided
+        user_context = ""
+        if user_id:
+            user_context = await ChromaDBService.build_context_for_chat(user_id, message)
+        
         # Determine which model to use
         if language in ["my", "th", "zh", "ja", "ko"]:
             # Use Qwen 3.5 for multilingual support
@@ -117,14 +125,16 @@ Wellness Philosophy: "Wellness, Not Medicine"
                 message=message,
                 language=language,
                 strict_mode=strict_wellness_mode,
-                context=context
+                context=context,
+                user_context=user_context
             )
         else:
             # Use Llama 4 for English (faster, more empathetic)
             return await cls._call_llama4(
                 message=message,
                 strict_mode=strict_wellness_mode,
-                context=context
+                context=context,
+                user_context=user_context
             )
     
     @classmethod
@@ -132,7 +142,8 @@ Wellness Philosophy: "Wellness, Not Medicine"
         cls,
         message: str,
         strict_mode: bool = False,
-        context: Optional[List[str]] = None
+        context: Optional[List[str]] = None,
+        user_context: str = ""
     ) -> str:
         """Call Llama 4 API for text generation."""
         
@@ -143,6 +154,10 @@ Wellness Philosophy: "Wellness, Not Medicine"
         system_prompt = cls.WELLNESS_SYSTEM_PROMPT
         if strict_mode:
             system_prompt += "\n\nSTRICT MODE: Absolutely no medical claims. Regenerate if uncertain."
+        
+        # Add user context if available
+        if user_context:
+            system_prompt += f"\n\n{user_context}"
         
         # Build conversation context
         messages = [{"role": "system", "content": system_prompt}]
@@ -190,7 +205,8 @@ Wellness Philosophy: "Wellness, Not Medicine"
         message: str,
         language: str,
         strict_mode: bool = False,
-        context: Optional[List[str]] = None
+        context: Optional[List[str]] = None,
+        user_context: str = ""
     ) -> str:
         """Call Qwen 3.5 API for multilingual or complex reasoning."""
         
@@ -203,6 +219,10 @@ Wellness Philosophy: "Wellness, Not Medicine"
         
         if strict_mode:
             system_prompt += "\n\nSTRICT MODE: Absolutely no medical claims."
+        
+        # Add user context if available
+        if user_context:
+            system_prompt += f"\n\n{user_context}"
         
         messages = [{"role": "system", "content": system_prompt}]
         
