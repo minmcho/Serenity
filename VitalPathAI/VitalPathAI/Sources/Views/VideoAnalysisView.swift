@@ -11,7 +11,7 @@ import UniformTypeIdentifiers
 
 struct VideoAnalysisView: View {
     @Environment(\.modelContext) private var modelContext
-    @StateObject private var viewModel = VideoAnalysisViewModel()
+    @ObservableObject private var viewModel = VideoAnalysisViewModel()
     @State private var showingVideoPicker = false
     @State private var showingCamera = false
     
@@ -348,7 +348,9 @@ struct AnalysisLoadingOverlay: View {
 }
 
 // MARK: - Camera View
-struct CameraView: ViewRepresentable {
+struct CameraView: UIViewRepresentable {
+    func updateUIView(_ uiView: UIView, context: Context) {}
+
     let viewModel: VideoAnalysisViewModel
     
     func makeUIView(context: Context) -> UIView {

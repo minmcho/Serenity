@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @StateObject private var viewModel = HomeViewModel()
+    @ObservableObject private var viewModel = HomeViewModel()
     @State private var showingCrisisModal = false
     @State private var selectedTab = 0
     

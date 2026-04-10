@@ -10,7 +10,7 @@ import SwiftData
 
 struct ChatView: View {
     @Environment(\.modelContext) private var modelContext
-    @StateObject private var viewModel = ChatViewModel()
+    @ObservableObject private var viewModel = ChatViewModel()
     @State private var messageText = ""
     @State private var showingCrisisModal = false
     @FocusState private var isTextFieldFocused: Bool
