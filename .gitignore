@@ -1,0 +1,41 @@
+```
+# Xcode project files
+VitalPathAI/VitalPathAI.xcodeproj/project.xcworkspace/
+VitalPathAI/VitalPathAI.xcodeproj/xcuserdata/
+*.xcworkspace/
+xcuserdata/
+
+# Build artifacts
+build/
+*.app/
+*.ipa/
+*.dSYM/
+DerivedData/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+```
