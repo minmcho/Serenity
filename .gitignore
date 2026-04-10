@@ -1,29 +1,49 @@
 ```
-# Xcode
-*.xcodeproj/
+# iOS/Xcode specific
 *.xcworkspace/
-*.xcuserdatad/
-*.swiftpm/
-
-# Build
-build/
+*.xcodeproj/
+*.xcassets/
 DerivedData/
+build/
+*.app
+*.ipa
+*.dSYM*
+*.lproj/
 
-# Temporary files
-*.tmp
-*.temp
+# General build artifacts
+build/
+dist/
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+# Dependencies
+Pods/
+Carthage/
+node_modules/
+vendor/bundle/
+
+# Logs and temp files
 *.log
+*.tmp
+*.swp
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# IDE
+# Editors
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# OS
+# OS generated files
 .DS_Store
 Thumbs.db
 ```
