@@ -1,56 +1,40 @@
 ```
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.swiftpm
 build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+.derivedData/
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcuserstate
 
-# Environment
-.venv/
-venv/
-env/
-ENV/
+# Swift
+*.swiftmodule
+*.swiftdoc
+*.swiftsourceinfo
 
-# Testing
-.coverage
-htmlcov/
-.tox/
-.nox/
-.coverage.*
-.cache
-.pytest_cache/
-.hypothesis/
+# iOS
+*.ipa
+*.dSYM.zip
+*.dSYM/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
-
-# Logs
-*.log
-
-# OS
+# macOS
 .DS_Store
-Thumbs.db
+.AppleDouble
+.LSOverride
 
-# Docker
-Dockerfile
+# Generated
+DerivedData/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.log
 ```
