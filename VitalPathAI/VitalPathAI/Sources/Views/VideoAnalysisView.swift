@@ -7,11 +7,12 @@
 
 import SwiftUI
 import AVFoundation
+import AVKit
 import UniformTypeIdentifiers
 
 struct VideoAnalysisView: View {
     @Environment(\.modelContext) private var modelContext
-    @ObservableObject private var viewModel = VideoAnalysisViewModel()
+    @StateObject private var viewModel = VideoAnalysisViewModel()
     @State private var showingVideoPicker = false
     @State private var showingCamera = false
     
@@ -394,16 +395,15 @@ struct VideoPickerView: UIViewControllerRepresentable {
 }
 
 // MARK: - Video Analysis ViewModel
-@Observable
-class VideoAnalysisViewModel {
-    var hasVideo = false
-    var isAnalyzing = false
-    var analysisComplete = false
-    var analysisResult = ""
-    var safetyFlagged = false
-    var confidence: Double = 0.0
-    var recentAnalyses: [VideoAnalysis] = []
-    var videoPlayer: AVPlayer?
+class VideoAnalysisViewModel: ObservableObject {
+    @Published var hasVideo = false
+    @Published var isAnalyzing = false
+    @Published var analysisComplete = false
+    @Published var analysisResult = ""
+    @Published var safetyFlagged = false
+    @Published var confidence: Double = 0.0
+    @Published var recentAnalyses: [VideoAnalysis] = []
+    @Published var videoPlayer: AVPlayer?
     
     func processVideo(url: URL) {
         hasVideo = true
@@ -436,8 +436,7 @@ class VideoAnalysisViewModel {
 }
 
 // MARK: - Video Analysis Model
-@Model
-final class VideoAnalysis {
+final class VideoAnalysis: Identifiable {
     var id: UUID
     var summary: String
     var analysisType: AnalysisType

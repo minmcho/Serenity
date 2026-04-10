@@ -10,7 +10,7 @@ import SwiftData
 
 struct ChatView: View {
     @Environment(\.modelContext) private var modelContext
-    @ObservableObject private var viewModel = ChatViewModel()
+    @StateObject private var viewModel = ChatViewModel()
     @State private var messageText = ""
     @State private var showingCrisisModal = false
     @FocusState private var isTextFieldFocused: Bool
@@ -165,7 +165,7 @@ struct SafetyBanner: View {
 // MARK: - Chat Input Field
 struct ChatInputField: View {
     @Binding var text: String
-    @FocusState var isFocused: FocusState<Bool>.Source
+    @FocusState var isFocused: Bool
     let onSend: () -> Void
     
     var body: some View {
@@ -181,13 +181,13 @@ struct ChatInputField: View {
             
             TextField("Share how you're feeling...", text: $text)
                 .textFieldStyle(PlainTextFieldStyle())
-                .focused(isFocused)
+                .focused($isFocused)
                 .padding(.vertical, 8)
             
             Button(action: onSend) {
                 Image(systemName: "paperplane.fill")
                     .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(text.trimmingCharacters(in: .whitespaces).isEmpty ? .tertiary : .accentColor)
+                    .foregroundColor(text.trimmingCharacters(in: .whitespaces).isEmpty ? Color.secondary.opacity(0.5) : .accentColor)
             }
             .buttonStyle(PlainButtonStyle())
             .disabled(text.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -228,14 +228,13 @@ final class ChatMessage {
 }
 
 // MARK: - Chat ViewModel
-@Observable
-class ChatViewModel {
-    var messages: [ChatMessage] = []
-    var isTyping = false
-    var crisisDetected = false
-    var userRegion = "US"
-    var crisisHelplineNumber = "988"
-    var crisisHelplineName = "Suicide & Crisis Lifeline"
+class ChatViewModel: ObservableObject {
+    @Published var messages: [ChatMessage] = []
+    @Published var isTyping = false
+    @Published var crisisDetected = false
+    @Published var userRegion = "US"
+    @Published var crisisHelplineNumber = "988"
+    @Published var crisisHelplineName = "Suicide & Crisis Lifeline"
     
     private let sessionId = UUID().uuidString
     

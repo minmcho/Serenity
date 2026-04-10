@@ -37,7 +37,7 @@ struct GlassCard: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(title)
                             .font(.headline)
-                            .fontWeight(.-semibold)
+                            .fontWeight(.semibold)
                             .foregroundColor(.primary)
                         
                         if let subtitle = subtitle {

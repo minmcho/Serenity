@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @ObservableObject private var viewModel = HomeViewModel()
+    @StateObject private var viewModel = HomeViewModel()
     @State private var showingCrisisModal = false
     @State private var selectedTab = 0
     
@@ -266,7 +266,7 @@ struct SessionRow: View {
             
             Image(systemName: "chevron.right")
                 .font(.caption)
-                .foregroundColor(.tertiary)
+                .foregroundColor(Color.secondary.opacity(0.6))
         }
         .padding(12)
         .background(
@@ -336,7 +336,7 @@ struct DisclaimerView: View {
             
             Text("VitalPath provides wellness guidance, not medical advice. Always consult a healthcare professional for medical concerns.")
                 .font(.caption2)
-                .foregroundColor(.tertiary)
+                .foregroundColor(Color.secondary.opacity(0.8))
                 .multilineTextAlignment(.center)
         }
         .padding(12)
@@ -349,15 +349,14 @@ struct DisclaimerView: View {
 }
 
 // MARK: - Home ViewModel
-@Observable
-class HomeViewModel {
-    var userName = "Friend"
-    var dailySteps = 7532
-    var moodRating: Int? = 4
-    var streakCount = 5
-    var crisisDetected = false
-    var recentSessions: [WellnessSession] = []
-    var dailyTip = "Taking small breaks throughout the day can help reduce stress and improve focus. Try the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds."
+class HomeViewModel: ObservableObject {
+    @Published var userName = "Friend"
+    @Published var dailySteps = 7532
+    @Published var moodRating: Int? = 4
+    @Published var streakCount = 5
+    @Published var crisisDetected = false
+    @Published var recentSessions: [WellnessSession] = []
+    @Published var dailyTip = "Taking small breaks throughout the day can help reduce stress and improve focus. Try the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds."
     
     func startMindfulnessSession() {
         // Start breathing exercise
