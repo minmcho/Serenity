@@ -10,6 +10,7 @@ from app.config import settings
 from app.api.graphql import schema
 from app.api.routes import router as api_router
 from app.core.safety import SafetyValidator
+from app.middleware.security import security_middleware
 
 # Configure structured logging
 structlog.configure(
@@ -38,6 +39,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Security Middleware (must be added after CORS)
+app.middleware("http")(security_middleware)
 
 # Include GraphQL Router
 graphql_app = GraphQLRouter(schema)
@@ -70,25 +74,6 @@ async def health_check():
         "version": "1.0.0",
         "environment": settings.environment,
     }
-
-
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    """Log all incoming requests."""
-    logger.info(
-        "request_started",
-        method=request.method,
-        path=request.url.path,
-        client_ip=request.client.host if request.client else "unknown",
-    )
-    response = await call_next(request)
-    logger.info(
-        "request_completed",
-        method=request.method,
-        path=request.url.path,
-        status_code=response.status_code,
-    )
-    return response
 
 
 if __name__ == "__main__":

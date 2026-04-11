@@ -1,48 +1,45 @@
 ```
-# Build artifacts
-*.o
-*.obj
-*.a
-*.lib
-*.dylib
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
 *.so
-*.dll
-*.exe
-*.out
-
-# Xcode
-*.xcodeproj/
-*.xcworkspace/
-*.swiftmodule/
-*.hmap
-*.ipa
-*.app
-
-# Swift Package Manager
-.swiftpm/
-
-# Temporary files
-*.tmp
-*.temp
-*.log
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
 # Environment
 .env
 .env.local
 .env.*
+.venv/
+venv/
+ENV/
 
-# Dependencies
-Packages/
-.build/
-DerivedData/
-
-# Editor
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*.tmp
 
-# OS generated
+# Logs
+*.log
+
+# OS
 .DS_Store
 Thumbs.db
 ```
