@@ -1,48 +1,39 @@
 ```
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.pytest_cache/
+
 # Build artifacts
-*.o
-*.obj
-*.a
-*.lib
-*.dylib
-*.so
-*.dll
-*.exe
-*.out
-
-# Xcode
-*.xcodeproj/
-*.xcworkspace/
-*.swiftmodule/
-*.hmap
-*.ipa
-*.app
-
-# Swift Package Manager
-.swiftpm/
-
-# Temporary files
-*.tmp
-*.temp
-*.log
+dist/
+build/
+target/
 
 # Environment
 .env
 .env.local
-.env.*
+*.env.*
 
-# Dependencies
-Packages/
-.build/
-DerivedData/
+# Logs
+*.log
 
-# Editor
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Editors
 .vscode/
 .idea/
 *.swp
 *.swo
+*.tmp
 
-# OS generated
+# System
 .DS_Store
 Thumbs.db
 ```
