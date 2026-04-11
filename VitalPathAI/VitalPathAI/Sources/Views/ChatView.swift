@@ -10,7 +10,7 @@ import SwiftData
 
 struct ChatView: View {
     @Environment(\.modelContext) private var modelContext
-    @StateObject private var viewModel = ChatViewModel()
+    @State private var viewModel = ChatViewModel()
     @State private var messageText = ""
     @State private var showingCrisisModal = false
     @FocusState private var isTextFieldFocused: Bool
@@ -224,79 +224,6 @@ final class ChatMessage {
         self.isUser = isUser
         self.safetyFlagged = false
         self.timestamp = Date()
-    }
-}
-
-// MARK: - Chat ViewModel
-class ChatViewModel: ObservableObject {
-    @Published var messages: [ChatMessage] = []
-    @Published var isTyping = false
-    @Published var crisisDetected = false
-    @Published var userRegion = "US"
-    @Published var crisisHelplineNumber = "988"
-    @Published var crisisHelplineName = "Suicide & Crisis Lifeline"
-    
-    private let sessionId = UUID().uuidString
-    
-    init() {
-        // Add welcome message
-        addBotMessage("Hi! I'm your wellness companion. How are you feeling today? Remember, I provide wellness support, not medical advice.")
-    }
-    
-    func sendMessage(_ text: String) {
-        // Check for crisis keywords first
-        if checkForCrisis(input: text) {
-            return
-        }
-        
-        // Add user message
-        let userMessage = ChatMessage(sessionId: sessionId, content: text, isUser: true)
-        messages.append(userMessage)
-        
-        // Simulate AI typing
-        isTyping = true
-        
-        // Simulate AI response (replace with actual API call)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-            guard let self = self else { return }
-            
-            // Safety check on output would happen here
-            let response = generateWellnessResponse(to: text)
-            self.addBotMessage(response)
-            self.isTyping = false
-        }
-    }
-    
-    private func addBotMessage(_ content: String) {
-        let botMessage = ChatMessage(sessionId: sessionId, content: content, isUser: false)
-        messages.append(botMessage)
-    }
-    
-    private func checkForCrisis(input: String) -> Bool {
-        let crisisKeywords = ["suicide", "hurt myself", "kill myself", "overdose", "end my life"]
-        let lowercasedInput = input.lowercased()
-        
-        if crisisKeywords.contains(where: lowercasedInput.contains) {
-            crisisDetected = true
-            // Log crisis event (hashed, no PHI stored)
-            return true
-        }
-        return false
-    }
-    
-    private func generateWellnessResponse(to input: String) -> String {
-        // This would be replaced with actual Llama 4 API call
-        let lowercaseInput = input.lowercased()
-        
-        if lowercaseInput.contains("stress") || lowercaseInput.contains("anxious") {
-            return "It's completely normal to feel stressed sometimes. Would you like to try a 2-minute breathing exercise? I can guide you through it."
-        } else if lowercaseInput.contains("tired") || lowercaseInput.contains("sleep") {
-            return "Rest is so important for our wellbeing. Have you been getting enough sleep lately? Try establishing a calming bedtime routine."
-        } else if lowercaseInput.contains("happy") || lowercaseInput.contains("great") {
-            return "That's wonderful to hear! 🌟 What's been going well for you? Celebrating the positive moments is important too."
-        } else {
-            return "Thank you for sharing that with me. How has this been affecting your daily life? I'm here to listen and support your wellness journey."
-        }
     }
 }
 

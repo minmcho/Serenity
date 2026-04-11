@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @StateObject private var viewModel = HomeViewModel()
+    @State private var viewModel = HomeViewModel()
     @State private var showingCrisisModal = false
     @State private var selectedTab = 0
     
@@ -336,7 +336,7 @@ struct DisclaimerView: View {
             
             Text("VitalPath provides wellness guidance, not medical advice. Always consult a healthcare professional for medical concerns.")
                 .font(.caption2)
-                .foregroundColor(Color.secondary.opacity(0.8))
+                .foregroundColor(.secondary.opacity(0.8))
                 .multilineTextAlignment(.center)
         }
         .padding(12)
@@ -345,31 +345,6 @@ struct DisclaimerView: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.gray.opacity(0.1))
         )
-    }
-}
-
-// MARK: - Home ViewModel
-class HomeViewModel: ObservableObject {
-    @Published var userName = "Friend"
-    @Published var dailySteps = 7532
-    @Published var moodRating: Int? = 4
-    @Published var streakCount = 5
-    @Published var crisisDetected = false
-    @Published var recentSessions: [WellnessSession] = []
-    @Published var dailyTip = "Taking small breaks throughout the day can help reduce stress and improve focus. Try the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds."
-    
-    func startMindfulnessSession() {
-        // Start breathing exercise
-    }
-    
-    func checkForCrisis(input: String) {
-        let crisisKeywords = ["suicide", "hurt myself", "kill myself", "overdose"]
-        let lowercasedInput = input.lowercased()
-        
-        if crisisKeywords.contains(where: lowercasedInput.contains) {
-            crisisDetected = true
-            // Log crisis event (hashed, no PHI)
-        }
     }
 }
 

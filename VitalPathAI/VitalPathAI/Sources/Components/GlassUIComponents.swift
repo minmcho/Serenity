@@ -52,7 +52,7 @@ struct GlassCard: View {
                     
                     Image(systemName: "chevron.right")
                         .font(.caption)
-                        .foregroundColor(.tertiary)
+                        .foregroundColor(.secondary.opacity(0.6))
                 }
             }
             .padding(16)
