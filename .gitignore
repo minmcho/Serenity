@@ -1,0 +1,48 @@
+```
+# Build artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.dylib
+*.so
+*.dll
+*.exe
+*.out
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+*.swiftmodule/
+*.hmap
+*.ipa
+*.app
+
+# Swift Package Manager
+.swiftpm/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Dependencies
+Packages/
+.build/
+DerivedData/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated
+.DS_Store
+Thumbs.db
+```
